@@ -42,13 +42,13 @@
   ![image](https://github.com/user-attachments/assets/1d0e967e-c78a-4615-bb0b-07f177c5731b)
 
 ## Доступні операції:
-  ## Для адміністратора
+  Для адміністратора
   ![image](https://github.com/user-attachments/assets/5fa87982-a851-4c64-b34e-85d2c5a03f30)
-  ## Для менеджера
+  Для менеджера
   ![image](https://github.com/user-attachments/assets/53d5bc00-71ee-414b-9bfe-92ce3d81462d)
-  ## Для дизайнера
+  Для дизайнера
   ![image](https://github.com/user-attachments/assets/252f76ee-9775-4c96-ac84-e0f159a82123)
-  ## Для користувача
+  Для користувача
   ![image](https://github.com/user-attachments/assets/0aa27e9a-506e-4f73-af54-69d10359af61)
 
 

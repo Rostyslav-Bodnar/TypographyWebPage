@@ -1,0 +1,78 @@
+﻿@model Курсова_робота.Models.Entities.EditionEntity
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+<head>
+    <link rel="stylesheet" href="~/css/productDetails.css" asp-append-version="true" />
+    <script src="~/js/shoppingCart.js" asp-append-version="true"></script>
+
+</head>
+<h1>Details for "@Model.Title"</h1>
+<div class="product-details-page">
+    <div class="path">
+        <p>PATH</p>
+    </div>
+    <div class="product-info"> 
+        <div class="product-about">
+            <div class="product-image">
+                <img src="@Model.ImagePath" alt="Ad Design" />
+            </div>
+            <div class="product-info-box">
+                <div class="product-title">
+                    <p class="title"><strong>@Model.Title</strong></p>
+                </div>
+                <div class="product-buy-info">
+                    <div class="product-rate">
+                        <p class="rating">Rating: </p>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-info">
+                            @if(Model.Stock > 0)
+                            {
+                                <p class="available">Available</p>
+                            }
+                            else
+                            {
+                                <p class="available" style="color: red">Not Available</p>
+
+                            }
+                            <p class="price">@Model.Price$</p>
+                        </div>
+                        @if (Model.Stock > 0)
+                        {
+                            <form asp-action="AddToCart" asp-controller="ShoppingCart" method="post">
+                                <input type="hidden" name="productId" value="@Model.Id" />
+                                <button type="submit" class="btn-order">Order</button>
+                            </form>
+                        }
+                    </div>
+
+                    <div class="product-delivery-info">
+                        <p class="delivery-info">
+                            Payment: PrivatPay, Visa/MasterCard, Cashless, Google Pay,
+                            Cash, Credit, Instant installments, Payment in installments
+                            Delivery: Nova Poshta, Justin, Ukr. mail, Pickup from the delivery point,
+                            Delivery by courier in Ivano-Frankivs
+                        </p>
+                    </div>
+                </div>
+                <div class="product-info-box-botton">
+                    <div class="product-detailed-info">
+                        <p class="author"><strong>Author:</strong> @Model.Author</p>
+                        <p class="genre"><strong>Genre:</strong> @Model.Genre.Name</p>
+                        <p class="date"><strong>Release Date:</strong> @Model.ReleaseDate.ToShortDateString()</p>
+                        <p class="pages"><strong>Pages:</strong> @Model.Pages</p>
+                    </div>
+                    <div class="product-plot">
+                        <p class="plot-header">Plot</p>
+                        <p class="plot">@Model.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Похожий клас, може міняти не то що треба -->
+    </div>
+</div>
+
+<a href="@Url.Action("Index", "Home")">Back to Home</a>

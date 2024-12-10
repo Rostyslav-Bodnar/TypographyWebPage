@@ -1,0 +1,75 @@
+﻿@model Курсова_робота.Models.ViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="homepage">
+    <!-- Sidebar with filters -->
+    <aside class="sidebar">
+        <div class="filter-category">
+            <div class="search-section">
+                <input type="text" placeholder="I'm finding..." />
+                <button class="btn-find">Find</button>
+            </div>
+            <label><input type="checkbox" /> Books</label>
+            <div class="subcategories">
+                @foreach (var genre in Model.Genres)
+                {
+                    <label>
+                        <input type="checkbox" name="genre" value="@genre.Id" /> @genre.Name
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="filter-category">
+            <label><input type="checkbox" /> Booklets</label>
+        </div>
+        <div class="filter-category">
+            <label><input type="checkbox" /> Magazines</label>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+        <!-- Advertising Section -->
+        <section class="advertising">
+            @if (Model.Ads != null)
+            {
+                foreach (var ad in Model.Ads)
+                {
+                    <div class="ad-content">
+                        <a href="@ad.URL" target="_blank">
+                            <img src="@ad.ImagePath" alt="Ad Design" />
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Your ad could be here</p>
+            }
+        </section>
+
+
+
+        <!-- Product grid -->
+        <section class="product-grid">
+            @foreach (var book in Model.Books)
+            {
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="@Url.Action("ProductDetails", "ProductDetails", new { id = book.Id, title = book.Title.Replace(" ", "-") })" target="_blank">
+                            <img src="@book.ImagePath" alt="Product Image" />
+                        </a>
+                    </div>
+
+                    <div class="product-info">
+                        <p class="product-name">@book.Title</p>
+                        <p class="product-price">@book.Price$</p>
+                        <a href="@Url.Action("ProductDetails", "ProductDetails", new { id = book.Id, title = book.Title.Replace(" ", "-") })" class="product-more">More</a>
+                    </div>
+                </div>
+            }
+        </section>
+    </main>
+</div>

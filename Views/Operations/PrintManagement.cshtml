@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Курсова_робота.Models.Entities.PrintOrderEntity>
+
+<head>
+    <link rel="stylesheet" href="~/css/editionManagement.css" asp-append-version="true" />
+</head>
+<body>
+    <h1>Typography Management</h1>
+
+    <!-- Відображення типографій -->
+    <h2>Typographies</h2>
+    <table class="order-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var typography in ViewBag.Typographies)
+            {
+                <tr>
+                    <td>@typography.Id</td>
+                    <td>@typography.Name</td>
+                    <td>@typography.TypographyStatus.Name</td>
+                    <td>@typography.LastUpdated</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Відображення замовлень -->
+    <h2>Print Orders</h2>
+    @if (!Model.Any())
+    {
+        <p>No orders to print.</p>
+    }
+    else
+    {
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Edition</th>
+                    <th>Date</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.Edition.Title</td>
+                        <td>@order.OrderDetail.OrderDate.ToShortDateString()</td>
+                        <td>@order.Quantity</td>
+                        <td>@order.OrderDetail.OrderStatus.Name</td>
+                        <td>
+                            <form method="post" asp-action="StartPrinting" asp-controller="PrintManagement">
+                                <input type="hidden" name="selectedEditionId" value="@order.Id" />
+                                <button type="submit" class="print-btn">Print</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>

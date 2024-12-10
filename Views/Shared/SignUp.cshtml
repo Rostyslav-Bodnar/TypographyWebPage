@@ -1,0 +1,43 @@
+﻿@model Курсова_робота.Models.ViewModels.SignUpViewModel
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+<head>
+    <link rel="stylesheet" href="~/css/signUp.css" asp-append-version="true" />
+</head>
+
+<body>
+<div class="wrapper">
+    <h2>Registration</h2>
+    <form asp-action="SignUp" method="post">
+        <div class="input-box">
+            <input asp-for="Username" placeholder="Enter your username" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="input-box">
+            <input asp-for="Email" placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="input-box">
+            <input asp-for="Password" type="password" placeholder="Create password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="input-box">
+            <input asp-for="ConfirmPassword" type="password" placeholder="Confirm password" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="policy">
+            <input type="checkbox" required />
+            <h3>I accept all terms & condition</h3>
+        </div>
+        <div class="input-box button">
+            <input type="Submit" value="Register Now">
+        </div>
+        <div class="text">
+            <h3>Already have an account? <a href="#">Login now</a></h3>
+        </div>
+    </form>
+</div>
+
+</body>

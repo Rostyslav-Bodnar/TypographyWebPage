@@ -1,0 +1,334 @@
+﻿/* Загальний стиль контейнера */
+.container {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 100px;
+}
+
+/* Сторінка управління замовленнями */
+.order-management-page {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Стиль для таблиці замовлень */
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+}
+
+    .order-table thead th {
+        background-color: #28a745; /* Зелений фон */
+        color: white; /* Білий текст */
+        padding: 12px 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .order-table tbody tr {
+        background-color: white;
+    }
+
+        .order-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Світло-сірий для чергування */
+        }
+
+    .order-table th, .order-table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+    }
+
+    .order-table tbody tr:hover {
+        background-color: #dcdcdc; /* Темно-сірий при наведенні */
+    }
+
+/* Стиль для кнопок деталей замовлення */
+.details-btn {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+    .details-btn:hover {
+        background-color: #0056b3;
+    }
+
+/* Блок для відображення деталей замовлення */
+.order-details {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: none;
+}
+
+    .order-details h3 {
+        margin-top: 0;
+    }
+
+/* Стиль для підтвердження замовлення */
+.confirm-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+    .confirm-btn:hover {
+        background-color: #218838;
+    }
+/* Стиль для контейнера з деталями замовлення */
+.order-details-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Світло-сірий фон для відділення від інших елементів */
+    border: 1px solid #ddd; /* Світлий сірий контур */
+    border-radius: 4px; /* Згладжені кути */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    display: block; /* Для відображення при завантаженні */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    /* Заголовок для контейнера з деталями */
+    .order-details-container h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #333; /* Темний текст для кращої читабельності */
+    }
+
+    /* Стиль для елементів списку з деталями замовлення */
+    .order-details-container ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+
+        .order-details-container ul li {
+            margin-bottom: 5px;
+            color: #555; /* Темно-сірий текст для елементів списку */
+        }
+
+    /* Стиль для тексту в контейнері */
+    .order-details-container p {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    /* Стиль для підписів */
+    .order-details-container strong {
+        color: #28a745; /* Зелений текст для підписів */
+    }
+
+/* Стиль для кнопки "Details" */
+.details-btn {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+    .details-btn:hover {
+        background-color: #0056b3;
+    }
+
+.send-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+/* Стиль для кнопки "Confirm and Send" */
+.confirm-send-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+    .confirm-send-btn:hover {
+        background-color: #218838;
+    }
+
+/* Стиль для накладки, яка покриває всю сторінку */
+.modal-overlay {
+    position: fixed; /* Залишається поверх усіх елементів */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Темний напівпрозорий фон */
+    display: none; /* Сховано за замовчуванням */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* На передньому плані */
+}
+
+/* Стиль для модального контейнера */
+.modal-content {
+    background-color: #f9f9f9; /* Світлий фон */
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь */
+    max-width: 500px;
+    width: 90%;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+}
+
+    /* Заголовок модального вікна */
+    .modal-content h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    /* Стиль для полів вводу у формі */
+    .modal-content input[type="text"],
+    .modal-content input[type="date"],
+    .modal-content input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    /* Стиль для кнопок у модальному вікні */
+    .modal-content .confirm-send-btn {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+        display: inline-block;
+        width: 48%;
+    }
+
+        .modal-content .confirm-send-btn:hover {
+            background-color: #218838;
+        }
+
+    /* Кнопка "Cancel" для закриття форми */
+    .modal-content .cancel-btn {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+        display: inline-block;
+        width: 48%;
+    }
+
+        .modal-content .cancel-btn:hover {
+            background-color: #c82333;
+        }
+/* Контейнер форми */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Дві колонки */
+    gap: 20px; /* Відстань між полями */
+}
+
+/* Параметри для рядків форми */
+.order-details-row {
+    display: flex;
+    flex-direction: column; /* Заголовок над полем вводу */
+}
+
+/* Вирівнювання кнопок у формі */
+.form-buttons {
+    grid-column: span 2; /* Кнопки на всю ширину форми */
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+/* Контейнер для вводу файлу */
+.file-input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+    /* Сховаємо реальний елемент вводу файлу */
+    .file-input-container input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0; /* Робимо його невидимим */
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+/* Стилізуємо кастомну кнопку для вибору файлу */
+.file-input-label {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+    .file-input-label:hover {
+        background-color: #0056b3;
+    }
+
+/* Стиль для підпису до поля вводу */
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        font-weight: bold;
+        color: #333;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+/* Вигляд контейнера після вибору файлу */
+.file-input-container input[type="file"]:valid + .file-input-label::after {
+    content: "File selected";
+    font-size: 0.9rem;
+    color: #28a745;
+}

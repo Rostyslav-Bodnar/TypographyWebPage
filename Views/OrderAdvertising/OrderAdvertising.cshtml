@@ -1,0 +1,31 @@
+﻿@model Курсова_робота.Models.ViewModels.OrderAdvertisingViewModel
+
+@{
+    ViewData["Title"] = "Order Advertising";
+}
+<head>
+    <link rel="stylesheet" href="~/css/signUp.css" asp-append-version="true" />
+</head>
+
+<div class="wrapper">
+    <h2>Order Advertising</h2>
+    <form asp-action="OrderAdvertising" method="post" enctype="multipart/form-data">
+        <div class="input-box">
+            <input asp-for="Address" placeholder="Enter your website URL" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="input-box">
+            <input asp-for="Email" placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <!-- Дата закінчення розміщення реклами -->
+        <div class="input-box">
+            <label for="EndDate">End date of the advertisement:</label>
+            <input asp-for="EndDate" type="date" class="form-control" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+        <div class="input-box button">
+            <input type="submit" value="Order">
+        </div>
+    </form>
+</div>

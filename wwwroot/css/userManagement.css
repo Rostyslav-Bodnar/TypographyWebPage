@@ -1,0 +1,101 @@
+﻿.container {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.cart-page-right {
+    border-left: 1px solid;
+    align-items: center;
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.price-box {
+    position: absolute;
+    top: 200px;
+}
+
+.price-table {
+    width: 100%;
+    border-collapse: collapse; /* Прибрати проміжки між клітинками */
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легка тінь */
+}
+
+    .price-table thead th {
+        background-color: #28a745; /* Чорний фон */
+        color: white; /* Білий текст */
+        padding: 12px 15px; /* Відступи */
+        text-transform: uppercase; /* Всі літери великі */
+        letter-spacing: 0.05em; /* Розширення між буквами */
+    }
+
+    .price-table tbody tr {
+        background-color: white; /* Білий фон за замовчуванням */
+    }
+
+        .price-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Світло-сірий для чергування */
+        }
+
+.table-center {
+    text-align: center;
+}
+
+.price-table tbody tr:hover {
+    background-color: #dcdcdc; /* Темно-сірий при наведенні */
+}
+
+.price-table th, .price-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd; /* Тонка сіра межа */
+}
+
+.price-table tfoot td {
+    font-weight: bold;
+    background-color: #f2f2f2;
+    padding: 12px 15px;
+    border-top: 2px solid black; /* Чорна верхня межа */
+}
+
+
+.role-dropdown {
+    padding: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.update-role-btn {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 3px;
+}
+
+    .update-role-btn:hover {
+        background-color: #218838;
+    }
+
+.ban-user-btn {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 3px;
+}
+
+    .ban-user-btn:hover {
+        background-color: #218838;
+    }

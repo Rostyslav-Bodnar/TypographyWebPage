@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Курсова_робота.Models.ViewModels.OrderManagementViewModel>
+
+<head>
+    <link rel="stylesheet" href="~/css/orderManagement.css" asp-append-version="true" />
+</head>
+<body>
+    @if (!Model.Any())
+    {
+        <h1>No orders</h1>
+    }
+    else
+    {
+        <div class="order-management-page">
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Username</th>
+                        <th>Total Price</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr class="order-row" data-order-id="@order.PurchaseOrderEntity.Id">
+                            <td>@order.PurchaseOrderEntity.Id</td>
+                            <td>@order.PurchaseOrderEntity.User.Username</td>
+                            <td>@order.PurchaseOrderEntity.TotalPrice $</td>
+                            <td>@order.PurchaseOrderEntity.OrderDate.ToShortDateString()</td>
+                            <td>@order.PurchaseOrderEntity.OrderStatus.Name</td>
+                            <td>
+                                <!-- Форма для відправки запиту з selectedOrderId -->
+                                <form method="get" asp-action="OrderManagement" asp-controller="OrderManagement">
+                                    <input type="hidden" name="selectedOrderId" value="@order.PurchaseOrderEntity.Id" />
+                                    <button type="submit" class="details-btn">Details</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Модальне вікно для деталей замовлення -->
+            @if (ViewBag.OrderDetails != null)
+            {
+                <div class="order-details-container">
+                    <h3>Order Details</h3>
+                    <div class="order-details-content">
+                        <div class="order-details-row">
+                            <strong>Order ID:</strong>
+                            <span>@ViewBag.OrderDetails.OrderId</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Username:</strong>
+                            <span>@ViewBag.OrderDetails.Username</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Address:</strong>
+                            <span>@ViewBag.OrderDetails.City</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Post Office:</strong>
+                            <span>@ViewBag.OrderDetails.PostOffice</span>
+                        </div>
+                        @if (ViewBag.OrderDetails.PaymentType == 2)
+                        {
+                            <div class="order-details-row">
+                                <strong>Card Number:</strong>
+                                <span>@ViewBag.OrderDetails.CardNumber</span>
+                            </div>
+                            <div class="order-details-row">
+                                <strong>CVV::</strong>
+                                <span>@ViewBag.OrderDetails.CVV</span>
+                            </div>
+                            <div class="order-details-row">
+                                <strong>Expiration Date:</strong>
+                                <span>@ViewBag.OrderDetails.ExpirationDate</span>
+                            </div>
+                        }
+                        <div class="order-details-row">
+                            <strong>Order Items:</strong>
+                            <span>
+                                <ul>
+                                    @foreach (var item in ViewBag.OrderDetails.Items)
+                                    {
+                                        <li>@item.Title - Quantity: @item.Quantity</li>
+                                    }
+                                </ul>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                @if(ViewBag.OrderDetails.IdOrderStatus == 3)
+                {
+                    if (ViewBag.OrderDetails.CanConfirm)
+                    {
+                        <div class="send-button">
+                            <form method="post" asp-action="ConfirmAndSend" asp-controller="OrderManagement">
+                                <input type="hidden" name="id" value="@ViewBag.OrderDetails.OrderId" />
+                                <button type="submit" class="confirm-send-btn">Confirm and Send</button>
+                            </form>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    }
+</body>

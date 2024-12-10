@@ -1,0 +1,207 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
+/* Header: робимо фіксованим і на всю ширину */
+.header {
+    position: fixed; /* Фіксує верхню панель */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Висота хедера */
+    background-color: #28a745; /* Ваш зелений колір */
+    z-index: 1000; /* Високий пріоритет */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Зміщення контенту вниз, щоб не перекривався шапкою */
+.homepage {
+    display: flex;
+    grid-template-rows: auto 1fr; /* Шапка зверху + контент займає решту простору */
+    grid-template-columns: 300px 1fr; /* Бокова панель + контент */
+    grid-template-areas:
+        "sidebar main";
+    height: 100%; /* Займає всю висоту сторінки */
+    width: 100%; /* Займає всю ширину сторінки */
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+}
+
+    .search-section input {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 300px;
+    }
+
+    .search-section .btn-find {
+        padding: 5px 15px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+.user-section button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #e8f5e9;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-right: 50px;
+    width: 400px;
+    padding-top: 50px;
+    
+}
+
+.filter-category {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    padding-left: 10px;
+}
+
+    .filter-category label {
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+label:hover
+{
+    color: green;
+}
+.subcategories {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Content */
+.main-content {
+    width: 100%; /* Ширина контенту */
+    margin-top: 60px; /* Відступ, рівний висоті хедера */
+}
+
+/* Advertising Section */
+.advertising {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    height: 250px;
+}
+
+/* Product Grid */
+.product-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: calc(25% - 20px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 150px;
+    background-color: #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Приховує частини зображення, що виходять за межі контейнера */
+}
+
+    .product-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Забезпечує правильне масштабування зображення, щоб воно заповнювало контейнер */
+        border-radius: 5px;
+    }
+
+
+    .product-card .product-info {
+        text-align: center;
+    }
+
+    .product-card .product-name {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    .product-card .product-price {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
+    .product-card .product-more {
+        margin-top: 10px;
+        text-decoration: none;
+        color: #2196F3;
+        font-size: 0.9rem;
+    }
+
+.ad-content {
+    max-width: 100%;
+    text-align: center; /* Центрує вміст */
+    overflow: hidden; /* Приховує частини зображення, що виходять за межі */
+    border-radius: 10px; /* Округлені кути (за бажанням) */
+}
+
+    .ad-content img {
+        max-width: 100%;
+        max-height: 250px; /* Зберігає співвідношення сторін */
+        border-radius: 5px; /* Округлені кути зображення */
+        cursor: pointer; /* Вказівник на посилання */
+    }
+
+

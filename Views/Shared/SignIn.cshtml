@@ -1,0 +1,28 @@
+﻿@model Курсова_робота.Models.ViewModels.SignInViewModel
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+<head>
+    <link rel="stylesheet" href="~/css/signUp.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>Sign In</h2>
+        <form asp-action="SignIn" method="post">
+            <div class="input-box">
+                <input asp-for="Email" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <input asp-for="Password" type="password" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="input-box button">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+
+</body>

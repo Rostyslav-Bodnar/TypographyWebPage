@@ -1,0 +1,215 @@
+﻿@using Курсова_робота.Models.Entities
+@model Курсова_робота.Models.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/shoppingCart.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="cart-page">
+        @if (!Model.CartItems.Any())
+        {
+            <div class="empty-cart-message">
+                <p>No items in the cart</p>
+            </div>
+        }
+        else
+        {
+            <div class="cart-page-left">
+                <div class="desirable-list">
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <div class="product-card">
+                            <div class="product-card-image">
+                                <a href="@Url.Action("ProductDetails", "ProductDetails", new { id = item.Edition.Id, title = item.Edition.Title.Replace(" ", "-") })" target="_blank">
+                                    <img src="@item.Edition.ImagePath" alt="Ad Design" />
+                                </a>
+                            </div>
+                            <div class="product-card-info">
+                                <p class="name">@item.Edition.Title</p>
+                                <p class="Price">@item.Edition.Price$</p>
+                            </div>
+                            <div class="product-card-delete">
+                                <form asp-action="RemoveFromCart" method="post">
+                                    <input type="hidden" name="productId" value="@item.Edition.Id" />
+                                    <button type="submit" class="btnDelete">X</button>
+                                </form>
+                            </div>
+
+                            <div class="product-card-more">
+                                <a href="@Url.Action("ProductDetails", "ProductDetails", new { id = item.Edition.Id, title = item.Edition.Title.Replace(" ", "-") })">More</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="cart-page-right">
+                <div class="price-box">
+                    <div class="price-box-list">
+                        <form asp-action="UpdateCart" method="post">
+                            <table class="price-table">
+                                <thead class="table-center">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.CartItems)
+                                    {
+                                        <tr>
+                                            <td>@item.Edition.Title</td>
+                                            <td class="table-center">
+                                                <input type="number" name="quantities[@item.Edition.Id]" value="@item.Quantity" min="1" class="quantity-input" />
+                                            </td>
+
+                                            <td class="price-cell">@item.Edition.Price$</td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                                
+                            </table>
+                            <div class="price-box-buttons">
+                                <button type="submit" class="btnOrder" onclick="event.preventDefault(); document.getElementById('orderConfirmationForm').style.display='block';">Order</button>
+                                <button type="button" class="btnClear" onclick="location.href='@Url.Action("ClearCart", "ShoppingCart")'">CLEAR ALL</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="orderConfirmationForm" class="orderConfirmationForm">
+    <h3>Order Confirmation</h3>
+
+        <form asp-action="ConfirmOrder" asp-controller="ShoppingCart" method="post">
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="City" value="@Model.City" required class="form-input" />
+        </div>
+
+        <div class="form-group">
+            <label for="postOffice">Post Office:</label>
+            <select id="postOffice" name="SelectedPostOfficeId" required class="form-select">
+                <option>Select Post Office</option>
+                @foreach (var postOffice in ViewBag.PostOffice as List<PostOfficeEntity>)
+                {
+                    <option value="@postOffice.Id">
+                        @postOffice.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+                <label for="paymentType">Payment Type:</label>
+                <select id="paymentType", name="SelectedPaymentTypeId" required class="form-select">
+                    <option>Select Payment Type</option>
+                    @foreach (var paymentType in ViewBag.PaymentTypes as List<PaymentTypeEntity>)
+                    {
+                        <option value="@paymentType.Id">
+                            @paymentType.Name
+                        </option>
+                    }
+                </select>
+        </div>
+
+            <div id="cardFields" style="display: none;">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number:</label>
+                    <input type="text" id="cardNumber" name="CardNumber" value="@Model.CardNumber" placeholder="Enter your card number" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="CVV" value="@Model.CVV" placeholder="Enter CVV" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label for="expirationDate">Expiration Date:</label>
+                    <input type="month" id="expirationDate" name="ExpirationDate" value="@Model.ExpirationDate" required class="form-input" />
+                </div>
+            </div>
+        <div class="total-price">
+            <label>Total: @Model.CartItems.Sum(item => item.Quantity * item.Edition.Price)$</label>
+
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btnConfirm">Confirm Order</button>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const paymentTypeSelect = document.getElementById('paymentType');
+        const cardFields = document.getElementById('cardFields');
+        const cardNumber = document.getElementById('cardNumber');
+        const cvv = document.getElementById('cvv');
+        const expirationDate = document.getElementById('expirationDate');
+
+        function toggleCardFields() {
+            if (paymentTypeSelect.value === "2") { // Якщо обраний тип "Card"
+                cardFields.style.display = "block";
+                cardNumber.required = true; // Зробити обов'язковим
+                cvv.required = true; // Зробити обов'язковим
+                expirationDate.required = true; // Зробити обов'язковим
+            } else { // Якщо обраний тип "Cash"
+                cardFields.style.display = "none";
+                cardNumber.required = false; // Зробити необов'язковим
+                cvv.required = false; // Зробити необов'язковим
+                expirationDate.required = false; // Зробити необов'язковим
+            }
+        }
+
+        // Виклик функції під час завантаження сторінки
+        toggleCardFields();
+
+        // Слухач змін типу оплати
+        paymentTypeSelect.addEventListener('change', toggleCardFields);
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const totalPriceElement = document.querySelector('.total-price label');
+
+        function updateTotalPrice() {
+            let totalPrice = 0;
+
+            quantityInputs.forEach(input => {
+                const price = parseFloat(input.closest('tr').querySelector('.price-cell').innerText.replace('$', ''));
+                const quantity = parseInt(input.value);
+                totalPrice += price * quantity;
+            });
+
+            totalPriceElement.innerText = `Total: ${totalPrice.toFixed(2)}$`;
+        }
+
+        // Додаємо слухач події `change` для кожного поля кількості
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', updateTotalPrice);
+        });
+
+        // Викликаємо функцію для ініціалізації загальної ціни при завантаженні сторінки
+        updateTotalPrice();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', function () {
+                input.closest('form').submit(); // Надсилає форму при зміні кількості
+            });
+        });
+    });
+
+</script>
+

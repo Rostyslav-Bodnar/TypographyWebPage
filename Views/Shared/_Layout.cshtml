@@ -1,0 +1,74 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Курсова_робота</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Курсова_робота.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true"/>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="hamburger-menu">
+                <input id="menu__toggle" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                </label>
+
+                <ul class="menu__box">
+                    <ul>
+                        @if (ViewData["Operations"] is IEnumerable<Курсова_робота.Models.Entities.OperationEntity> operations)
+                        {
+                            @foreach (var operation in operations)
+                            {
+                                <li class="menu__item"><a href="@Url.Action(operation.Name.Replace(" ", ""), operation.Name.Replace(" ", ""))">@operation.Name</a></li>
+                            }
+                        }
+                        else
+                        {
+                            <p>No operations available</p>
+                        }
+
+                    </ul>
+
+                </ul>
+            </div>
+            <div class="logo">LOGO</div>
+        </div>
+        <div class="navigation-panel">
+            <ul class="navigation-panel-list">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("ShoppingCart", "Menu")">News</a></li>
+                <li><a href="contact.html">Contac us</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+        <div class="user-section">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <span>Welcome, @User.Identity.Name!</span>
+                <button class="btn-signout" onclick="window.location.href='@Url.Action("SignOut", "Auth")'">Sign Out</button>
+            }
+            else
+            {
+                <button class="btn-signin" onclick="window.location.href='@Url.Action("SignIn", "Auth")'">Sign In</button>
+                <button class="btn-register" onclick="window.location.href='@Url.Action("SignUp", "SignUp")'">Register</button>
+            }
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

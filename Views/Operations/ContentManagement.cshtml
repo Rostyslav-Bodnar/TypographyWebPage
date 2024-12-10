@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Курсова_робота.Models.Entities.EditionEntity>
+
+<head>
+    <link rel="stylesheet" href="~/css/editionManagement.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Кнопка для додавання нового видання -->
+    <div class="addEdition-button">
+        <button id="addEditionBtn" class="confirm-send-btn">Add Edition</button>
+    </div>
+
+    <!-- Форма для додавання нового видання, прихована за замовчуванням -->
+    <div id="addEditionForm" class="order-details-container" style="display: none;">
+        <h3>Add New Edition</h3>
+        <form method="post" asp-action="AddEdition" asp-controller="ContentManagement" class="form-grid" enctype="multipart/form-data">
+            <div class="order-details-row">
+                <label for="Title">Title:</label>
+                <input type="text" id="Title" name="Title" required />
+            </div>
+            <div class="order-details-row">
+                <label for="Author">Author:</label>
+                <input type="text" id="Author" name="Author" required />
+            </div>
+            <div class="order-details-row">
+                <label for="TypeEntityName">Type:</label>
+                <select id="EditionType" name="IdType" required class="form-select">
+                    <option value="">Select Type</option>
+                    @foreach (var type in ViewBag.Types)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="order-details-row">
+                <label for="GenreName">Genre:</label>
+                <select id="EditionGenre" name="IdGenre" required class="form-select">
+                    <option value="">Select Genre</option>
+                    @foreach (var genre in ViewBag.Genres)
+                    {
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="order-details-row">
+                <label for="ReleaseDate">Release Date:</label>
+                <input type="date" id="ReleaseDate" name="ReleaseDate" required />
+            </div>
+            <div class="order-details-row">
+                <label for="Pages">Pages:</label>
+                <input type="number" id="Pages" name="Pages" required />
+            </div>
+            <div class="order-details-row">
+                <label for="Price">Price:</label>
+                <input type="number" step="0.01" id="Price" name="Price" required />
+            </div>
+            <div class="order-details-row">
+                <label for="Stock">Stock:</label>
+                <input type="number" id="Stock" name="Stock" required />
+            </div>
+            <div class="order-details-row">
+                <label for="Stock">Description:</label>
+                <input type="text" id="Description" name="Description" required />
+            </div>
+            <div class="form-group">
+                <label for="file">Place Image File of Edition</label>
+                <div class="file-input-container">
+                    <input type="file" id="file" name="file" accept="image/*" required>
+                    <label for="file" class="file-input-label">Choose a file...</label>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="confirm-send-btn">Save Edition</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    @if (!Model.Any())
+    {
+        <h1>No editions</h1>
+    }
+    else
+    {
+        <div class="order-management-page">
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var edition in Model)
+                    {
+                        <tr class="order-row" data-order-id="@edition.Id">
+                            <td>@edition.Id</td>
+                            <td>@edition.Title</td>
+                            <td>@edition.Author</td>
+                            <td>@edition.TypeEntity.Name</td>
+                            <td>@edition.Price$</td>
+                            <td>@edition.Stock</td>
+                            <td>
+                                <!-- Форма для відправки запиту з selectedOrderId -->
+                                <form method="get" asp-action="ContentManagement" asp-controller="ContentManagement">
+                                    <input type="hidden" name="selectedEditionId" value="@edition.Id" />
+                                    <button type="submit" class="details-btn">Details</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Модальне вікно для деталей замовлення -->
+            @if (ViewBag.EditionDetails != null)
+            {
+                <div class="order-details-container">
+                    <h3>Edition Details</h3>
+                    <div class="order-details-content">
+                        <div class="order-details-row">
+                            <strong>Title:</strong>
+                            <span>@ViewBag.EditionDetails.Title</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Pages:</strong>
+                            <span>@ViewBag.EditionDetails.Pages</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Genre:</strong>
+                            <span>@ViewBag.EditionDetails.Genre.Name</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Release Date:</strong>
+                            <span>@ViewBag.EditionDetails.ReleaseDate</span>
+                        </div>
+                        <div class="order-details-row">
+                            <strong>Description:</strong>
+                            <span>@ViewBag.EditionDetails.Description</span>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" asp-action="RemoveEdition" asp-controller="ContentManagement">
+                    <input type="hidden" name="selectedEditionId" value="@ViewBag.EditionDetails.Id" />
+                    <button type="submit" class="confirm-send-btn">Remove</button>
+                </form>
+
+            }
+        </div>
+    }
+    <script>
+        // Додаємо JavaScript для показу/приховування форми
+        document.getElementById("addEditionBtn").addEventListener("click", function () {
+            var form = document.getElementById("addEditionForm");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        });
+    </script>
+</body>

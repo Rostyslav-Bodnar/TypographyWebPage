@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Курсова_робота.Models.Entities.AdvertisingOrdersEntity>
+
+<head>
+    <link rel="stylesheet" href="~/css/editionManagement.css" asp-append-version="true" />
+</head>
+<body>
+
+    @if (!Model.Any())
+    {
+        <h1>No ads</h1>
+    }
+    else
+    {
+        <div class="order-management-page">
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer Email</th>
+                        <th>URL</th>
+                        <th>View Date</th>
+                        <th>Add Design</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ad in Model)
+                    {
+                        <tr class="order-row" data-order-id="@ad.Id">
+                            <td>@ad.Id</td>
+                            <td>@ad.CustomerEmail</td>
+                            <td>@ad.URL</td>
+                            <td>@ad.ViewDate</td>
+                            <td>
+                                @if (!ad.isHavingDesign)
+                                {
+                                    <form asp-controller="AssignedAds" asp-action="AddDesign" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="id" value="@ad.Id" />
+                                        <input type="file" name="designImage" accept="image/*" required />
+                                        <button type="submit">Add Design</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <p>Design Added</p>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</body>

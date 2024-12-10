@@ -15,7 +15,7 @@
 
 - **Backend**: ASP.NET Core
 - **Frontend**: HTML, CSS, JavaScript
-- **База даних**: Entity Framework
+- **База даних**: Entity Framework, SSMS
 - **Інструменти**: UML-діаграми для проектування, TDD підхід для тестування
 
 ## Архітектура
